@@ -33,9 +33,11 @@ Notepad::~Notepad()
 
 void Notepad::loadSettings() {
     settings = new QSettings(homeDirectory + "/.notepad", QSettings::Format::IniFormat, nullptr);
-    QFont font = QFont(settings->value("font", "Chalkboard").toString());
+    QString fontFamily = settings->value("fontFamily", "Chalkboard").toString();
+    int fontSize = settings->value("fontSize", "14").toInt();
     QColor fgcolor = QColor(settings->value("foregroundColor", "FFFFFF").toString().toInt(nullptr, 16));
     QColor bgcolor = QColor(settings->value("backgroundColor", "0099FF").toString().toInt(nullptr, 16));
+    QFont font = QFont(fontFamily, fontSize, -1, false);
     ui->textEdit->setFont(font);
     QPalette p = ui->textEdit->palette();
     p.setColor(QPalette::Text, fgcolor);

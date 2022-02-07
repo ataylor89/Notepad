@@ -1,3 +1,4 @@
-font = "Chalkboard"
+fontFamily = "Chalkboard"
+fontSize = 14
 foregroundColor = "FFFFFF"
 backgroundColor = "0099FF"
