@@ -49,7 +49,7 @@ void Notepad::newDocument() {
 }
 
 void Notepad::open() {
-    QString directory = settings->value("directory", homeDirectory + "/Documents").toString();
+    QString directory = homeDirectory + "/Documents";
     QString fileName = QFileDialog::getOpenFileName(this, "Open the file", directory, nullptr);
     QFile file(fileName);
     currentFile = fileName;
