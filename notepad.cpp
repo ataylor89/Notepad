@@ -7,6 +7,7 @@ Notepad::Notepad(QWidget *parent)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
+    this->loadSettings();
 
     connect(ui->actionNew, &QAction::triggered, this, &Notepad::newDocument);
     connect(ui->actionOpen, &QAction::triggered, this, &Notepad::open);
@@ -27,13 +28,28 @@ Notepad::~Notepad()
     delete ui;
 }
 
+void Notepad::loadSettings() {
+    struct passwd *pw = getpwuid(getuid());
+    QString homedir(pw->pw_dir);
+    homedir += "/Documents";
+    settings.font = QFont(QString("Chalkboard"), -1, -1, false);
+    settings.foregroundColor = QColor(255, 255, 255, 255);
+    settings.backgroundColor = QColor(0, 153, 255, 255);
+    settings.directory = QString(homedir);
+    ui->textEdit->setFont(settings.font);
+    QPalette p = ui->textEdit->palette();
+    p.setColor(QPalette::Text, settings.foregroundColor);
+    p.setColor(QPalette::Base, settings.backgroundColor);
+    ui->textEdit->setPalette(p);
+}
+
 void Notepad::newDocument() {
     currentFile.clear();
     ui->textEdit->setText(QString());
 }
 
 void Notepad::open() {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file");
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file", settings.directory, nullptr);
     QFile file(fileName);
     currentFile = fileName;
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {

@@ -1,6 +1,9 @@
 #ifndef NOTEPAD_H
 #define NOTEPAD_H
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -8,8 +11,15 @@
 #include <QColorDialog>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Notepad; }
+namespace Ui { class Notepad; struct Settings; }
 QT_END_NAMESPACE
+
+typedef struct Settings {
+    QFont font;
+    QColor foregroundColor;
+    QColor backgroundColor;
+    QString directory;
+} Settings;
 
 class Notepad : public QMainWindow
 {
@@ -20,6 +30,7 @@ public:
     ~Notepad();
 
 private slots:
+    void loadSettings();
     void newDocument();
     void open();
     void save();
@@ -36,5 +47,7 @@ private slots:
 private:
     Ui::Notepad *ui;
     QString currentFile;
+    Settings settings;
 };
+
 #endif // NOTEPAD_H
