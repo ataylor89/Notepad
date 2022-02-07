@@ -54,9 +54,17 @@
     </property>
     <addaction name="actionSelect_font"/>
    </widget>
+   <widget class="QMenu" name="menuColors">
+    <property name="title">
+     <string>Color</string>
+    </property>
+    <addaction name="actionSelect_fgcolor"/>
+    <addaction name="actionSelect_bgcolor"/>
+   </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
    <addaction name="menuFont"/>
+   <addaction name="menuColors"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
@@ -107,6 +115,16 @@
   <action name="actionSelect_font">
    <property name="text">
     <string>Select font</string>
+   </property>
+  </action>
+  <action name="actionSelect_fgcolor">
+   <property name="text">
+    <string>Select fgcolor</string>
+   </property>
+  </action>
+  <action name="actionSelect_bgcolor">
+   <property name="text">
+    <string>Select bgcolor</string>
    </property>
   </action>
  </widget>

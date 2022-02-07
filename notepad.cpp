@@ -18,6 +18,8 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->actionUndo, &QAction::triggered, this, &Notepad::undo);
     connect(ui->actionRedo, &QAction::triggered, this, &Notepad::redo);
     connect(ui->actionSelect_font, &QAction::triggered, this, &Notepad::selectFont);
+    connect(ui->actionSelect_fgcolor, &QAction::triggered, this, &Notepad::selectForegroundColor);
+    connect(ui->actionSelect_bgcolor, &QAction::triggered, this, &Notepad::selectBackgroundColor);
 }
 
 Notepad::~Notepad()
@@ -119,4 +121,22 @@ void Notepad::selectFont()
     QFont font = QFontDialog::getFont(&fontSelected, this);
     if (fontSelected)
         ui->textEdit->setFont(font);
+}
+
+void Notepad::selectForegroundColor()
+{
+    QColor color = QColorDialog::getColor(Qt::black,this);
+
+    QPalette p = ui->textEdit->palette();
+    p.setColor(QPalette::Text, color);
+    ui->textEdit->setPalette(p);
+}
+
+void Notepad::selectBackgroundColor()
+{
+    QColor color = QColorDialog::getColor(Qt::white,this);
+
+    QPalette p = ui->textEdit->palette();
+    p.setColor(QPalette::Base, color);
+    ui->textEdit->setPalette(p);
 }

@@ -5,6 +5,7 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QFontDialog>
+#include <QColorDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Notepad; }
@@ -29,6 +30,8 @@ private slots:
     void undo();
     void redo();
     void selectFont();
+    void selectForegroundColor();
+    void selectBackgroundColor();
 
 private:
     Ui::Notepad *ui;
