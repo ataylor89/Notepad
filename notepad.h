@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QFontDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Notepad; }
@@ -27,6 +28,7 @@ private slots:
     void paste();
     void undo();
     void redo();
+    void selectFont();
 
 private:
     Ui::Notepad *ui;

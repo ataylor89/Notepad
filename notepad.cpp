@@ -17,6 +17,7 @@ Notepad::Notepad(QWidget *parent)
     connect(ui->actionPaste, &QAction::triggered, this, &Notepad::paste);
     connect(ui->actionUndo, &QAction::triggered, this, &Notepad::undo);
     connect(ui->actionRedo, &QAction::triggered, this, &Notepad::redo);
+    connect(ui->actionSelect_font, &QAction::triggered, this, &Notepad::selectFont);
 }
 
 Notepad::~Notepad()
@@ -112,3 +113,10 @@ void Notepad::redo()
     ui->textEdit->redo();
 }
 
+void Notepad::selectFont()
+{
+    bool fontSelected;
+    QFont font = QFontDialog::getFont(&fontSelected, this);
+    if (fontSelected)
+        ui->textEdit->setFont(font);
+}
