@@ -31,11 +31,10 @@ Notepad::~Notepad()
 void Notepad::loadSettings() {
     struct passwd *pw = getpwuid(getuid());
     QString homedir(pw->pw_dir);
-    homedir += "/Documents";
     settings.font = QFont(QString("Chalkboard"), -1, -1, false);
     settings.foregroundColor = QColor(255, 255, 255, 255);
     settings.backgroundColor = QColor(0, 153, 255, 255);
-    settings.directory = QString(homedir);
+    settings.directory = QString(homedir) + "/Documents";
     ui->textEdit->setFont(settings.font);
     QPalette p = ui->textEdit->palette();
     p.setColor(QPalette::Text, settings.foregroundColor);
@@ -53,7 +52,7 @@ void Notepad::open() {
     QFile file(fileName);
     currentFile = fileName;
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-       QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
+       // QMessageBox::warning(this, "Warning", "Cannot open file: " + file.errorString());
        return;
     }
     setWindowTitle(fileName);
