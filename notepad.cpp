@@ -74,7 +74,7 @@ void Notepad::save()
     }
     QFile file(fileName);
     if (!file.open(QIODevice::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        // QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
         return;
     }
     setWindowTitle(fileName);
@@ -90,7 +90,7 @@ void Notepad::saveAs()
     QFile file(fileName);
 
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
-        QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
+        // QMessageBox::warning(this, "Warning", "Cannot save file: " + file.errorString());
         return;
     }
     currentFile = fileName;
