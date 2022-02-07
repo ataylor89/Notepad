@@ -7,6 +7,9 @@ Notepad::Notepad(QWidget *parent)
 {
     ui->setupUi(this);
     this->setCentralWidget(ui->textEdit);
+
+    struct passwd *pw = getpwuid(getuid());
+    homeDirectory = QString(pw->pw_dir);
     this->loadSettings();
 
     connect(ui->actionNew, &QAction::triggered, this, &Notepad::newDocument);
@@ -29,16 +32,14 @@ Notepad::~Notepad()
 }
 
 void Notepad::loadSettings() {
-    struct passwd *pw = getpwuid(getuid());
-    QString homedir(pw->pw_dir);
-    settings.font = QFont(QString("Chalkboard"), -1, -1, false);
-    settings.foregroundColor = QColor(255, 255, 255, 255);
-    settings.backgroundColor = QColor(0, 153, 255, 255);
-    settings.directory = QString(homedir) + "/Documents";
-    ui->textEdit->setFont(settings.font);
+    settings = new QSettings(homeDirectory + "/.notepad", QSettings::Format::IniFormat, nullptr);
+    QFont font = QFont(settings->value("font", "Chalkboard").toString());
+    QColor fgcolor = QColor(settings->value("foregroundColor", "FFFFFF").toString().toInt(nullptr, 16));
+    QColor bgcolor = QColor(settings->value("backgroundColor", "0099FF").toString().toInt(nullptr, 16));
+    ui->textEdit->setFont(font);
     QPalette p = ui->textEdit->palette();
-    p.setColor(QPalette::Text, settings.foregroundColor);
-    p.setColor(QPalette::Base, settings.backgroundColor);
+    p.setColor(QPalette::Text, fgcolor);
+    p.setColor(QPalette::Base, bgcolor);
     ui->textEdit->setPalette(p);
 }
 
@@ -48,7 +49,8 @@ void Notepad::newDocument() {
 }
 
 void Notepad::open() {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open the file", settings.directory, nullptr);
+    QString directory = settings->value("directory", homeDirectory + "/Documents").toString();
+    QString fileName = QFileDialog::getOpenFileName(this, "Open the file", directory, nullptr);
     QFile file(fileName);
     currentFile = fileName;
     if (!file.open(QIODevice::ReadOnly | QFile::Text)) {

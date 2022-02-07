@@ -9,17 +9,11 @@
 #include <QMessageBox>
 #include <QFontDialog>
 #include <QColorDialog>
+#include <QSettings>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class Notepad; struct Settings; }
+namespace Ui { class Notepad; }
 QT_END_NAMESPACE
-
-typedef struct Settings {
-    QFont font;
-    QColor foregroundColor;
-    QColor backgroundColor;
-    QString directory;
-} Settings;
 
 class Notepad : public QMainWindow
 {
@@ -46,8 +40,9 @@ private slots:
 
 private:
     Ui::Notepad *ui;
+    QSettings *settings;
     QString currentFile;
-    Settings settings;
+    QString homeDirectory;
 };
 
 #endif // NOTEPAD_H
