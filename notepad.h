@@ -10,6 +10,8 @@
 #include <QFontDialog>
 #include <QColorDialog>
 #include <QSettings>
+#include <QKeyEvent>
+#include <QKeySequence>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Notepad; }
@@ -22,6 +24,9 @@ class Notepad : public QMainWindow
 public:
     Notepad(QWidget *parent = nullptr);
     ~Notepad();
+
+protected:
+    void keyPressEvent(QKeyEvent *keyEvent);
 
 private slots:
     void loadSettings();

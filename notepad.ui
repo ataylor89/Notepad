@@ -26,7 +26,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>24</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -66,7 +66,6 @@
    <addaction name="menuFont"/>
    <addaction name="menuColors"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNew">
    <property name="text">
     <string>New</string>
@@ -119,12 +118,12 @@
   </action>
   <action name="actionSelect_fgcolor">
    <property name="text">
-    <string>Select fgcolor</string>
+    <string>Select foreground color</string>
    </property>
   </action>
   <action name="actionSelect_bgcolor">
    <property name="text">
-    <string>Select bgcolor</string>
+    <string>Select background color</string>
    </property>
   </action>
  </widget>

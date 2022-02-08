@@ -31,6 +31,18 @@ Notepad::~Notepad()
     delete ui;
 }
 
+void Notepad::keyPressEvent(QKeyEvent *keyEvent)
+{
+    if (keyEvent->matches(QKeySequence::Save))
+    {
+        save();
+    }
+    if (keyEvent->matches(QKeySequence::Open))
+    {
+        open();
+    }
+}
+
 void Notepad::loadSettings() {
     settings = new QSettings(homeDirectory + "/.notepad", QSettings::Format::IniFormat, nullptr);
     QString fontFamily = settings->value("fontFamily", "Chalkboard").toString();
@@ -68,10 +80,11 @@ void Notepad::open() {
 
 void Notepad::save()
 {
+    QString directory = homeDirectory + "/Documents";
     QString fileName;
     // If we don't have a filename from before, get one.
     if (currentFile.isEmpty()) {
-        fileName = QFileDialog::getSaveFileName(this, "Save");
+        fileName = QFileDialog::getSaveFileName(this, "Save", directory, nullptr);
         currentFile = fileName;
     } else {
         fileName = currentFile;
@@ -90,7 +103,8 @@ void Notepad::save()
 
 void Notepad::saveAs()
 {
-    QString fileName = QFileDialog::getSaveFileName(this, "Save as");
+    QString directory = homeDirectory + "/Documents";
+    QString fileName = QFileDialog::getSaveFileName(this, "Save as", directory, nullptr);
     QFile file(fileName);
 
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
